@@ -47,7 +47,11 @@ const navItems = [
     icon: <HomeOutlined />,
   },
   {
-    text: "Import Book",
+    text: "Return Book",
+    icon: <HomeOutlined />,
+  },
+  {
+    text: "Import",
     icon: <HomeOutlined />,
   },
   {

@@ -3,7 +3,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 
-const MemberForm = ({ member, isNonMobile, handleFormSubmit }) => {
+const BookForm = ({ member, isNonMobile, handleFormSubmit }) => {
   // console.log(member);
   const initialValues = {
     name: `${member?.name || ""}`,
@@ -142,4 +142,4 @@ const checkoutSchema = yup.object().shape({
   city: yup.string().required("required"),
   state: yup.string(),
 });
-export default MemberForm;
+export default BookForm;

@@ -5,12 +5,11 @@ import FlexBetween from "components/FlexBetween";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useAddMemberMutation } from "state/api";
-import MemberForm from "components/MemberForm";
+import BookForm from "components/BookForm";
 
-const AddMember = () => {
+const IssueBook = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  //form
   const [addMember] = useAddMemberMutation();
 
   //submit
@@ -30,14 +29,11 @@ const AddMember = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween sx={{ m: "2vh 0" }}>
-        <Header title="ADD MEMBER" subtitle="Create a new user" />
+        <Header title="ISSUE BOOKS" subtitle="Issue books to user" />
       </FlexBetween>
-      <MemberForm
-        isNonMobile={isNonMobile}
-        handleFormSubmit={handleFormSubmit}
-      />
+      <BookForm isNonMobile={isNonMobile} handleFormSubmit={handleFormSubmit} />
     </Box>
   );
 };
 
-export default AddMember;
+export default IssueBook;

@@ -4,7 +4,7 @@ import Header from "components/Header";
 import FlexBetween from "components/FlexBetween";
 import { useParams, useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useGetMemberQuery, useDeleteMemberMutation } from "state/api";
+import { useGetMemberQuery, useEditMemberMutation } from "state/api";
 import MemberForm from "components/MemberForm";
 
 const EditMember = () => {
@@ -13,7 +13,7 @@ const EditMember = () => {
   let { id } = useParams();
   const { data: member } = useGetMemberQuery(id);
   //form
-  const [editMembers] = useDeleteMemberMutation();
+  const [editMembers] = useEditMemberMutation();
 
   //submit
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const EditMember = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween sx={{ m: "2vh 0" }}>
-        <Header title="EDIT Member" subtitle="Edit Your Profile" />
+        <Header title="EDIT MEMBER" subtitle="Edit Members Details" />
       </FlexBetween>
       <MemberForm
         member={member}

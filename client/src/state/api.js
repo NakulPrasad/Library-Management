@@ -30,6 +30,22 @@ export const api = createApi({
                 method: 'DELETE',
             }),
         }),
+        addMember: build.mutation({
+            query: (newMember) => ({
+                url: '/management/edit/addMember',
+                method: 'POST',
+                body: newMember
+            }),
+            providesTags: ["Add Member"]
+        }),
+        editMember: build.mutation({
+            query: ({ Member, id }) => ({
+                url: `/management/edit/member/${id}`,
+                method: 'PUT',
+                body: Member
+            }),
+            providesTags: ["Edit Member"]
+        })
     }),
 
 })
@@ -41,6 +57,8 @@ export const {
     useGetMemberQuery,
     useGetMembersQuery,
     useDeleteMemberMutation,
+    useAddMemberMutation,
+    useEditMemberMutation,
 
 
 } = api
