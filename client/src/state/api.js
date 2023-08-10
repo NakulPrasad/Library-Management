@@ -7,6 +7,7 @@ export const api = createApi({
     reducerPath: "adminApi", //name in redux store
     tagTypes: [
         "Books",
+        "Member",
         "Members",
 
     ],
@@ -14,6 +15,10 @@ export const api = createApi({
         getBooks: build.query({
             query: () => `general/dashboard`, //saves json object PRODUCT + STATS
             providesTags: ["Books"],
+        }),
+        getMember: build.query({
+            query: (id) => `/management/edit/member/${id}`, //saves json object PRODUCT + STATS
+            providesTags: ["Member"],
         }),
         getMembers: build.query({
             query: () => `management/members`, //saves json object PRODUCT + STATS
@@ -33,6 +38,7 @@ export const {
 
     //all product+stats json objext
     useGetBooksQuery,
+    useGetMemberQuery,
     useGetMembersQuery,
     useDeleteMemberMutation,
 

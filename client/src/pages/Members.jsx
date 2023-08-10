@@ -10,7 +10,7 @@ const Members = () => {
   const { data, isLoading } = useGetMembersQuery();
   const [deleteUser] = useDeleteMemberMutation();
   const navigate = useNavigate();
-  console.log("data", data);
+  // console.log("data", data);
   const columns = [
     {
       field: "name",
@@ -67,7 +67,7 @@ const Members = () => {
   const handleEdit = (id) => {
     // Call your API to delete member from the database
     // console.log(id);
-    navigate(`/edit/member/${id}`);
+    navigate(`/management/edit/member/${id}`);
   };
 
   const handleDelete = (id) => {

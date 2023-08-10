@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Dashboard from 'pages/Dashboard'
 import Layout from 'pages/common/Layout'
 import Members from "pages/Members";
-import EditForm from "pages/EditForm";
+import EditMember from "pages/EditMember";
+import AddMember from "pages/AddMember";
 
 
 
@@ -28,7 +29,8 @@ function App() {
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/members" element={<Members />} />
-              <Route path="/edit/member/:id" element={<EditForm />} />
+              <Route path="/management/edit/member/:id" element={<EditMember />} />
+              <Route path="/add member" element={<AddMember />} />
 
 
 
