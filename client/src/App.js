@@ -12,6 +12,7 @@ import AddMember from "pages/AddMember";
 import IssueBook from "pages/IssueBook";
 import ReturnBook from "pages/ReturnBook";
 import Import from "pages/Import";
+import Transaction from "pages/Transaction";
 
 
 
@@ -37,6 +38,7 @@ function App() {
               <Route path="/issue book" element={<IssueBook />} />
               <Route path="/return book" element={<ReturnBook />} />
               <Route path="/import" element={<Import />} />
+              <Route path="/transactions" element={<Transaction />} />
 
 
 

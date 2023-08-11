@@ -13,13 +13,16 @@ import {
 } from "@mui/material";
 import Header from "components/Header";
 import { useGetBooksQuery } from "state/api";
+import FlexBetween from "components/FlexBetween";
+import { DownloadOutlined } from "@mui/icons-material";
 
-const Product = ({
+const Book = ({
   _id,
   title,
   authors,
   average_rating,
   language_code,
+  isbn13,
   publisher,
   publication_date,
   quantity,
@@ -47,9 +50,9 @@ const Product = ({
           {title}
         </Typography>
         <Typography sx={{ mb: "1.5rem" }} color={theme.palette.secondary[300]}>
-          ${Number(average_rating).toFixed(2)}
+          Quantity: {Number(quantity)}
         </Typography>
-        <Rating value={language_code} readOnly />
+        <Rating value={average_rating} readOnly />
 
         <Typography variant="body2">{authors}</Typography>
       </CardContent>
@@ -71,10 +74,10 @@ const Product = ({
         }}
       >
         <CardContent>
-          <Typography>id: {_id}</Typography>
-          <Typography>publication_date Left: {publication_date}</Typography>
-          <Typography>Yearly Sales This Year: 1</Typography>
-          <Typography>Yearly Units Sold This Year: 1</Typography>
+          <Typography>Book ID: {_id}</Typography>
+          <Typography>Publication Date : {publication_date}</Typography>
+          <Typography>ISBN 13: {isbn13}</Typography>
+          <Typography>Language: {language_code}</Typography>
         </CardContent>
       </Collapse>
     </Card>
@@ -82,13 +85,30 @@ const Product = ({
 };
 
 const Dashboard = () => {
+  const theme = useTheme();
   //we get isLoading from redux: true : data is processing to appear on frontend
   const isNonMobile = useMediaQuery("(min-width:1000px)");
   const { data, isLoading } = useGetBooksQuery();
   // console.log(data);
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="Books" subtitle="List of all available books" />
+      <FlexBetween>
+        <Header title="Book" subtitle="List of all available books" />
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: theme.palette.secondary.light,
+              color: theme.palette.background.alt,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+          >
+            <DownloadOutlined sx={{ mr: "10px" }} />
+            Manage Book
+          </Button>
+        </Box>
+      </FlexBetween>
       {data || !isLoading ? (
         <Box
           mt="20px"
@@ -109,10 +129,11 @@ const Dashboard = () => {
               average_rating,
               language_code,
               publisher,
+              isbn13,
               publication_date,
               quantity,
             }) => (
-              <Product
+              <Book
                 key={bookID}
                 _id={bookID}
                 title={title}
@@ -122,6 +143,7 @@ const Dashboard = () => {
                 publisher={publisher}
                 publication_date={publication_date}
                 quantity={quantity}
+                isbn13={isbn13}
               />
             )
           )}

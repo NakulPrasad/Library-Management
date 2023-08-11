@@ -1,4 +1,6 @@
 import Member from "../models/Member.js";
+import Book from "../models/Book.js"
+import Transaction from "../models/Transaction.js"
 
 
 export const getMember = async (req, res) => {
@@ -64,3 +66,105 @@ export const editMember = async (req, res) => {
     }
 };
 
+//search email
+export const searchMember = async (req, res) => {
+    try {
+        const { email } = req.query;
+        const members = await Member.find({ email: new RegExp(email, 'i') });
+        res.json(members.map((member) => member.email));
+    } catch (error) {
+        console.log('Error details:', error);
+        res.status(409).json({ message: error.message });
+    }
+}
+//issue book
+export const issueBook = async (req, res) => {
+    try {
+        const { email, bookID } = req.body;
+
+
+        const member = await Member.findOne({ email });
+        if (!member) {
+            return res.status(404).json({ error: 'Member not found.' });
+        }
+        const book = await Book.findOne({ bookID });
+        if (!book) {
+            return res.status(404).json({ error: 'Book not found.' });
+        }
+
+
+        // Check if the book is available for issuing
+        if (book.quantity === 0) {
+            return res.status(400).json({ message: 'Book out of stock' });
+        }
+
+        // Create a new transaction record
+        const transaction = new Transaction({
+            email: email,
+            bookID: bookID,
+            dueDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+        });
+        await transaction.save();
+
+        // Update book quantity
+        book.quantity -= 1;
+
+        // Save changes to the database
+
+        await book.save();
+
+        res.json({ message: 'Book issued successfully.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while processing the request.' });
+    }
+};
+
+//return book
+export const returnBook = async (req, res) => {
+    try {
+        const { email, bookID } = req.body;
+
+        // Find the member by email
+        const member = await Member.findOne({ email });
+        if (!member) {
+            return res.status(404).json({ error: 'Member not found.' });
+        }
+
+        // Find the book by bookID
+        const book = await Book.findById(bookID);
+        if (!book) {
+            return res.status(404).json({ error: 'Book not found.' });
+        }
+
+        // Find the transaction record for the book and member
+        const transaction = await Transaction.findOne({
+            email: member._id,
+            bookID,
+            returnDate: null,
+        });
+
+        if (!transaction) {
+            return res.status(400).json({ error: 'Book was not issued to this member.' });
+        }
+
+        // Calculate rent fee and update return date
+        const currentDate = new Date();
+        const daysLate = Math.max(0, Math.floor((currentDate - transaction.issueDate) / (1000 * 60 * 60 * 24)));
+        const rentFee = daysLate * book.rentRate; // Assuming rentRate is the daily fee
+        transaction.returnDate = currentDate;
+        transaction.rentFee = rentFee;
+
+        // Update book quantity
+        book.quantity += 1;
+
+        // Save changes to the database
+        await transaction.save();
+        await book.save();
+
+        res.json({ message: 'Book returned successfully.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while processing the request.' });
+    }
+};

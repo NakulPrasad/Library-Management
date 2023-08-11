@@ -4,27 +4,21 @@ import Header from "components/Header";
 import FlexBetween from "components/FlexBetween";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useAddMemberMutation } from "state/api";
+import { useIssueBookMutation } from "state/api";
 import BookForm from "components/BookForm";
 
 const IssueBook = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const [addMember] = useAddMemberMutation();
+  const [issueBook] = useIssueBookMutation();
 
-  //submit
   const navigate = useNavigate();
   const handleFormSubmit = async (values) => {
     console.log(values);
-    await addMember(values);
-    alert("Member Added Successfully");
+    await issueBook(values);
+    alert("Book Issued Successfully");
     navigate("/members");
   };
-
-  // console.log(member);
-  // console.log(member?.name);
-
-  // if (!member) return "Loading...";
 
   return (
     <Box m="1.5rem 2.5rem">

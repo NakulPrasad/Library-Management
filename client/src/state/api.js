@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
-    reducerPath: "adminApi", //name in redux store
+    reducerPath: "adminApi",
     tagTypes: [
         "Books",
         "Member",
@@ -13,15 +13,15 @@ export const api = createApi({
     ],
     endpoints: (build) => ({
         getBooks: build.query({
-            query: () => `general/dashboard`, //saves json object PRODUCT + STATS
+            query: () => `general/dashboard`,
             providesTags: ["Books"],
         }),
         getMember: build.query({
-            query: (id) => `/management/edit/member/${id}`, //saves json object PRODUCT + STATS
+            query: (id) => `/management/edit/member/${id}`,
             providesTags: ["Member"],
         }),
         getMembers: build.query({
-            query: () => `management/members`, //saves json object PRODUCT + STATS
+            query: () => `management/members`,
             providesTags: ["Members"],
         }),
         deleteMember: build.mutation({
@@ -45,7 +45,33 @@ export const api = createApi({
                 body: Member
             }),
             providesTags: ["Edit Member"]
-        })
+        }),
+        issueBook: build.mutation({
+            query: ({ email, bookID }) => ({
+                url: '/management/issueBook',
+                method: 'POST',
+                body: { email, bookID }
+            }),
+            providesTags: ["Issue Book"]
+        }),
+        returnBook: build.mutation({
+            query: ({ email, bookID }) => ({
+                url: '/management/returnBook',
+                method: 'POST',
+                body: { email, bookID }
+            }),
+            providesTags: ["Issue Book"]
+        }),
+        getTransactions: build.query({
+            query: () => ({
+                url: "data/transactions",
+                method: "GET",
+            }),
+            providesTags: ["Transactions"],
+        }),
+
+
+
     }),
 
 })
@@ -59,6 +85,9 @@ export const {
     useDeleteMemberMutation,
     useAddMemberMutation,
     useEditMemberMutation,
+    useIssueBookMutation,
+    useGetTransactionsQuery,
+    useReturnBookMutation,
 
 
 } = api

@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 
 
-const MemberSchema = new mongoose.Schema(
+const memberSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -32,5 +32,5 @@ const MemberSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-const Member = mongoose.model("Member", MemberSchema);
+const Member = mongoose.model("Member", memberSchema);
 export default Member;

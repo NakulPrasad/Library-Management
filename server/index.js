@@ -8,6 +8,7 @@ import morgan from "morgan";
 
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
+import dataRoutes from "./routes/data.js"
 
 import path from "path";
 
@@ -15,7 +16,8 @@ import path from "path";
 //data db imports
 import Books from "./models/Book.js";
 import Member from "./models/Member.js";
-import { dataBook, dataMember } from "./data/index.js";
+import { dataBook, dataMember, dataTransaction } from "./data/index.js";
+import Transaction from "./models/Transaction.js";
 
 
 
@@ -39,6 +41,7 @@ app.use(cors());
 /* ROUTES */
 app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
+app.use("/data", dataRoutes);
 
 
 // Connecting frontend
@@ -67,6 +70,7 @@ mongoose
         // data adds only one time
         // Books.insertMany(dataBook);
         // Member.insertMany(dataMember);
+        // Transaction.insertMany(dataTransaction);
 
     })
     .catch((err) => console.error("Could not connect to MongoDB...", err));

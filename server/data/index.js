@@ -419,3 +419,36 @@ export const dataMember = [
 
   }
 ];
+
+export const dataTransaction = [
+  {
+    "memberId": "64d3ec13d07515735de4b5e4",
+    "bookID": 10970,
+
+    "action": "issue"
+  },
+  {
+    "memberId": "64d3ec13d07515735de4b5e4",
+    "bookID": 10970,
+
+    "action": "issue"
+  },
+  {
+    "memberId": "64d3ec13d07515735de4b5e4",
+    "bookID": 10970,
+
+    "action": "issue"
+  },
+  {
+    "memberId": "64d3ec13d07515735de4b5e4",
+    "bookID": 10970,
+
+    "action": "issue"
+  },
+  {
+    "memberId": "64d3ec13d07515735de4b5e4",
+    "bookID": 10970,
+
+    "action": "issue"
+  }
+];

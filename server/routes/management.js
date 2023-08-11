@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteMember, getMember, getMembers, addMember, editMember } from '../controllers/management.js';
+import { deleteMember, getMember, getMembers, addMember, editMember, searchMember, issueBook, returnBook } from '../controllers/management.js';
 
 
 const router = express.Router();
@@ -8,5 +8,8 @@ router.get("/members", getMembers);
 router.delete('/edit/member/:id', deleteMember);
 router.post('/edit/addMember', addMember);
 router.put('/edit/member/:id', editMember);
+router.get('/searchMember', searchMember)
+router.post('/issueBook', issueBook);
+router.post('/returnBook', returnBook);
 
 export default router;
