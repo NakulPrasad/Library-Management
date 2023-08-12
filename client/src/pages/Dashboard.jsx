@@ -14,7 +14,6 @@ import {
 import Header from "components/Header";
 import { useGetBooksQuery } from "state/api";
 import FlexBetween from "components/FlexBetween";
-import { DownloadOutlined } from "@mui/icons-material";
 
 const Book = ({
   _id,
@@ -91,24 +90,31 @@ const Dashboard = () => {
   //we get isLoading from redux: true : data is processing to appear on frontend
   const isNonMobile = useMediaQuery("(min-width:1000px)");
   const { data, isLoading } = useGetBooksQuery();
+
+  //search
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
   // console.log(data);
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         <Header title="Book" subtitle="List of all available books" />
         <Box>
-          <Button
+          <input
+            type="text"
+            placeholder="Search by title, author, etc."
+            onChange={handleSearch}
             sx={{
-              backgroundColor: theme.palette.secondary.light,
-              color: theme.palette.background.alt,
+              padding: "10px",
               fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
+              border: `1px solid ${theme.palette.secondary.light}`,
+              borderRadius: "5px",
+              marginRight: "10px",
             }}
-          >
-            <DownloadOutlined sx={{ mr: "10px" }} />
-            Manage Book
-          </Button>
+          />
         </Box>
       </FlexBetween>
       {data || !isLoading ? (
@@ -123,34 +129,41 @@ const Dashboard = () => {
             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
           }}
         >
-          {data.map(
-            ({
-              bookID,
-              title,
-              authors,
-              average_rating,
-              language_code,
-              publisher,
-              isbn,
-              isbn13,
-              publication_date,
-              quantity,
-            }) => (
-              <Book
-                key={bookID}
-                _id={bookID}
-                title={title}
-                authors={authors}
-                average_rating={average_rating}
-                language_code={language_code}
-                publisher={publisher}
-                publication_date={publication_date}
-                quantity={quantity}
-                isbn13={isbn13}
-                isbn={isbn}
-              />
+          {data
+            .filter(
+              ({ title, authors, publisher }) =>
+                title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                authors.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                publisher.toLowerCase().includes(searchQuery.toLowerCase())
             )
-          )}
+            .map(
+              ({
+                bookID,
+                title,
+                authors,
+                average_rating,
+                language_code,
+                publisher,
+                isbn,
+                isbn13,
+                publication_date,
+                quantity,
+              }) => (
+                <Book
+                  key={bookID}
+                  _id={bookID}
+                  title={title}
+                  authors={authors}
+                  average_rating={average_rating}
+                  language_code={language_code}
+                  publisher={publisher}
+                  publication_date={publication_date}
+                  quantity={quantity}
+                  isbn13={isbn13}
+                  isbn={isbn}
+                />
+              )
+            )}
         </Box>
       ) : (
         <>Loading...</>
