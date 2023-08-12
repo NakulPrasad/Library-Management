@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "azure": "npm install --prefix server && npm run start --prefix server",
+    "azure": "npm install && npm run start",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
