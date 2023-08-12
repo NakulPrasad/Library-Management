@@ -103,6 +103,11 @@ export const issueBook = async (req, res) => {
             return res.status(400).json({ message: 'Book out of stock' });
         }
 
+        // Check if the member has already issued the same book
+        if (member.bookIssued.includes(bookID)) {
+            return res.status(400).json({ message: 'Book has already been issued to this member.' });
+        }
+
         // Create a new transaction record
         const transaction = new Transaction({
             email: email,
@@ -130,45 +135,51 @@ export const issueBook = async (req, res) => {
 
 
 //return book
+
 export const returnBook = async (req, res) => {
     try {
         const { email, bookID } = req.body;
 
-        // Find the member by email
         const member = await Member.findOne({ email });
         if (!member) {
             return res.status(404).json({ error: 'Member not found.' });
         }
 
-        // Find the book by bookID
-        const book = await Book.findById(bookID);
+        const book = await Book.findOne({ bookID });
         if (!book) {
             return res.status(404).json({ error: 'Book not found.' });
         }
 
-        // Find the transaction record for the book and member
-        const transaction = await Transaction.findOne({
-            email: member._id,
-            bookID,
-            returnDate: null,
-        });
-
-        if (!transaction) {
-            return res.status(400).json({ error: 'Book was not issued to this member.' });
+        // Check if the member has issued the book
+        const issuedIndex = member.bookIssued.indexOf(bookID);
+        if (issuedIndex === -1) {
+            return res.status(400).json({ message: 'Book not issued by this member.' });
         }
 
-        // Calculate rent fee and update return date
-        const currentDate = new Date();
-        const daysLate = Math.max(0, Math.floor((currentDate - transaction.issueDate) / (1000 * 60 * 60 * 24)));
-        const rentFee = daysLate * book.rentRate; // Assuming rentRate is the daily fee
-        transaction.returnDate = currentDate;
-        transaction.rentFee = rentFee;
+        // Remove bookID from bookIssued array
+        member.bookIssued.splice(issuedIndex, 1);
+
+        // Update outstanding debt
+        if (member.outstanding >= 100) {
+            member.outstanding -= 100;  // Subtract 100 from outstanding debt if >= 100
+        } else {
+            member.outstanding = 0;
+        }
 
         // Update book quantity
         book.quantity += 1;
 
-        // Save changes to the database
+        // Update transaction record for the return
+        const transaction = new Transaction({
+            email: email,
+            bookID: bookID,
+            action: "return",
+            outstanding: member.outstanding
+        });
         await transaction.save();
+
+        // Save changes to the database
+        await member.save();
         await book.save();
 
         res.json({ message: 'Book returned successfully.' });
@@ -177,6 +188,8 @@ export const returnBook = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while processing the request.' });
     }
 };
+
+
 
 //import Book
 export const importBook = async (req, res) => {

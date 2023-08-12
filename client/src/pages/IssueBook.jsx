@@ -23,7 +23,7 @@ const IssueBook = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween sx={{ m: "2vh 0" }}>
-        <Header title="ISSUE BOOKS" subtitle="Issue books to user" />
+        <Header title="ISSUE BOOKS" subtitle="Issue books to members" />
       </FlexBetween>
       <BookForm isNonMobile={isNonMobile} handleFormSubmit={handleFormSubmit} />
     </Box>
