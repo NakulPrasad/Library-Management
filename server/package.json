@@ -1,11 +1,10 @@
 {
-  "name": "server",
+  "name": "libraryy",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "azure": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && npm run start",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
