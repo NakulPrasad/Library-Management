@@ -1,8 +1,10 @@
 import express from 'express';
-import { getBooks } from "../controllers/general.js"
+import { getAllBooks } from "../controllers/general.js"
 const router = express.Router();
 
 
-router.get("/dashboard", getBooks);
+router.get("/dashboard", getAllBooks);
+
+
 
 export default router;

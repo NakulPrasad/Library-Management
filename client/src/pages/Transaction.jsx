@@ -17,8 +17,8 @@ const Transactions = () => {
       flex: 1,
     },
     {
-      field: "memberId",
-      headerName: "Member ID",
+      field: "email",
+      headerName: "Email",
       flex: 1,
     },
     {
@@ -27,8 +27,8 @@ const Transactions = () => {
       flex: 1,
     },
     {
-      field: "Action",
-      headerName: "Action",
+      field: "lateFee",
+      headerName: "Late Fee",
       flex: 1,
     },
     {

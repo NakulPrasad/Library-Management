@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const transactionSchema = new mongoose.Schema(
     {
-        bookID: { type: mongoose.Schema.Types.ObjectId, ref: "Book", required: true },
+        bookID: { type: Number, ref: "Book", required: true },
         email: {
             type: String,
             ref: "email",

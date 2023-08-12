@@ -69,6 +69,15 @@ export const api = createApi({
             }),
             providesTags: ["Transactions"],
         }),
+        importBook: build.mutation({
+            query: (newBook) => ({
+                url: '/management/importBook',
+                method: 'POST',
+                body: newBook
+            }),
+            providesTags: ["Add Member"]
+        }),
+
 
 
 

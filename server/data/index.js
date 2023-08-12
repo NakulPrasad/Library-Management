@@ -192,7 +192,8 @@ export const dataBook = [
     "ratings_count": "155",
     "text_reviews_count": "13",
     "publication_date": "12/9/1998",
-    "publisher": "Gallery Books"
+    "publisher": "Gallery Books",
+    "quantity": 5
   },
   {
     "bookID": "33308",
@@ -206,7 +207,8 @@ export const dataBook = [
     "ratings_count": "413",
     "text_reviews_count": "53",
     "publication_date": "11/16/2005",
-    "publisher": "Travelers' Tales"
+    "publisher": "Travelers' Tales",
+    "quantity": 5
   },
   {
     "bookID": "29680",
@@ -220,7 +222,8 @@ export const dataBook = [
     "ratings_count": "73",
     "text_reviews_count": "3",
     "publication_date": "8/18/2006",
-    "publisher": "University Press of Mississippi"
+    "publisher": "University Press of Mississippi",
+    "quantity": 5
   },
   {
     "bookID": "9742",
@@ -234,7 +237,8 @@ export const dataBook = [
     "ratings_count": "127324",
     "text_reviews_count": "4496",
     "publication_date": "10/17/2006",
-    "publisher": "Crown"
+    "publisher": "Crown",
+    "quantity": 5
   },
   {
     "bookID": "15004",
@@ -248,7 +252,8 @@ export const dataBook = [
     "ratings_count": "579",
     "text_reviews_count": "83",
     "publication_date": "8/21/1997",
-    "publisher": "Ecco"
+    "publisher": "Ecco",
+    "quantity": 5
   },
   {
     "bookID": "32816",
@@ -262,7 +267,8 @@ export const dataBook = [
     "ratings_count": "1149",
     "text_reviews_count": "41",
     "publication_date": "8/1/2005",
-    "publisher": "W. W. Norton & Company"
+    "publisher": "W. W. Norton & Company",
+    "quantity": 5
   },
   {
     "bookID": "2912",
@@ -276,7 +282,8 @@ export const dataBook = [
     "ratings_count": "114",
     "text_reviews_count": "17",
     "publication_date": "1/1/1995",
-    "publisher": "Yearling"
+    "publisher": "Yearling",
+    "quantity": 5
   },
   {
     "bookID": "2123",
@@ -290,7 +297,8 @@ export const dataBook = [
     "ratings_count": "69",
     "text_reviews_count": "6",
     "publication_date": "11/1/2006",
-    "publisher": "Grand Central Life & Style"
+    "publisher": "Grand Central Life & Style",
+    "quantity": 5
   }
 
 ];

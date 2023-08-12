@@ -22,6 +22,7 @@ const Book = ({
   authors,
   average_rating,
   language_code,
+  isbn,
   isbn13,
   publisher,
   publication_date,
@@ -76,6 +77,7 @@ const Book = ({
         <CardContent>
           <Typography>Book ID: {_id}</Typography>
           <Typography>Publication Date : {publication_date}</Typography>
+          <Typography>ISBN: {isbn}</Typography>
           <Typography>ISBN 13: {isbn13}</Typography>
           <Typography>Language: {language_code}</Typography>
         </CardContent>
@@ -129,6 +131,7 @@ const Dashboard = () => {
               average_rating,
               language_code,
               publisher,
+              isbn,
               isbn13,
               publication_date,
               quantity,
@@ -144,6 +147,7 @@ const Dashboard = () => {
                 publication_date={publication_date}
                 quantity={quantity}
                 isbn13={isbn13}
+                isbn={isbn}
               />
             )
           )}

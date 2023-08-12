@@ -14,7 +14,7 @@ import path from "path";
 
 
 //data db imports
-import Books from "./models/Book.js";
+import Book from "./models/Book.js";
 import Member from "./models/Member.js";
 import { dataBook, dataMember, dataTransaction } from "./data/index.js";
 import Transaction from "./models/Transaction.js";
@@ -68,7 +68,7 @@ mongoose
 
         app.listen(PORT, () => console.log(`Connected to MongoDB... ${PORT}`))
         // data adds only one time
-        // Books.insertMany(dataBook);
+        // Book.insertMany(dataBook);
         // Member.insertMany(dataMember);
         // Transaction.insertMany(dataTransaction);
 

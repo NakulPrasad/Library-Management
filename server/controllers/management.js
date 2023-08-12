@@ -1,6 +1,7 @@
 import Member from "../models/Member.js";
-import Book from "../models/Book.js"
+import Book from "../models/Book.js";
 import Transaction from "../models/Transaction.js"
+import fetch from "node-fetch";
 
 
 export const getMember = async (req, res) => {
@@ -110,7 +111,7 @@ export const issueBook = async (req, res) => {
         book.quantity -= 1;
 
         // Save changes to the database
-
+        member.bookIssued.push(bookID);
         await book.save();
 
         res.json({ message: 'Book issued successfully.' });
@@ -168,3 +169,69 @@ export const returnBook = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while processing the request.' });
     }
 };
+
+//import Book
+export const importBook = async (req, res) => {
+    const { isbn, quantity } = req.body;
+    const id = isbn;
+
+    try {
+        // Fetch book data from external API
+        const response = await fetch(
+            `https://frappe.io/api/method/frappe-library?isbn=${id}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Error fetching book data from external API");
+        }
+
+        const responseData = await response.json(); // Parse response data
+
+        if (responseData.message.length === 0) {
+            throw new Error("Book not found in external API");
+        }
+
+        const bookData = responseData.message[0]; // Access the first book object
+
+        const {
+            bookID,
+            title,
+            authors,
+            average_rating,
+            isbn,
+            isbn13,
+            language_code,
+            publication_date,
+            publisher,
+        } = bookData;
+
+        // Find or create the book in MongoDB
+        const existingBook = await Book.findOne({ isbn });
+
+        let book;
+        if (existingBook) {
+            existingBook.quantity += parseInt(quantity);
+            book = existingBook;
+        } else {
+            book = new Book({
+                bookID,
+                title,
+                authors,
+                average_rating,
+                isbn,
+                isbn13,
+                language_code,
+                publication_date,
+                publisher,
+                quantity: parseInt(quantity),
+            });
+        }
+        await book.save();
+
+        res.json({ success: true, message: "Book imported successfully." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Error importing book." });
+    }
+};
+
