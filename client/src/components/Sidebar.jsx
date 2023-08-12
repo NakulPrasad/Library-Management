@@ -15,7 +15,6 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
-  PlaylistAddCircleOutlined,
   ReceiptLongOutlined,
   AccountCircleOutlined,
   PersonAddAlt1Outlined,
@@ -70,7 +69,6 @@ const navItems = [
 ];
 
 const Sidebar = ({
-  user, //userObj
   drawerWidth,
   isSidebarOpen, //deafult true
   setIsSidebarOpen,

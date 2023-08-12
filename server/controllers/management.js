@@ -68,17 +68,7 @@ export const editMember = async (req, res) => {
     }
 };
 
-//search email
-export const searchMember = async (req, res) => {
-    try {
-        const { email } = req.query;
-        const members = await Member.find({ email: new RegExp(email, "i") });
-        res.json(members.map((member) => member.email));
-    } catch (error) {
-        console.log("Error details:", error);
-        res.status(409).json({ message: error.message });
-    }
-};
+
 //issue book
 export const issueBook = async (req, res) => {
     try {

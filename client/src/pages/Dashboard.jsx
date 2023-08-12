@@ -87,7 +87,6 @@ const Book = ({
 };
 
 const Dashboard = () => {
-  const theme = useTheme();
   //we get isLoading from redux: true : data is processing to appear on frontend
   const isNonMobile = useMediaQuery("(min-width:1000px)");
   const { data, isLoading } = useGetBooksQuery();

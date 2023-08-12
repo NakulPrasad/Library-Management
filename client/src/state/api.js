@@ -5,13 +5,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
     reducerPath: "adminApi",
-    tagTypes: [
-        "Books",
-        "Member",
-        "Members",
-        "ImportBook",
 
-    ],
     endpoints: (build) => ({
         getBooks: build.query({
             query: () => `general/dashboard`,
