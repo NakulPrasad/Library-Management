@@ -15,14 +15,19 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
+  PlaylistAddCircleOutlined,
   ReceiptLongOutlined,
   AccountCircleOutlined,
+  PersonAddAlt1Outlined,
+  BookmarkAddOutlined,
+  BookmarkRemoveOutlined,
 } from "@mui/icons-material";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 import profileImage from "assets/profile.jpg";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
+import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 
 // ITME list sidebar
 const navItems = [
@@ -40,19 +45,19 @@ const navItems = [
   },
   {
     text: "Add Member",
-    icon: <HomeOutlined />,
+    icon: <PersonAddAlt1Outlined />,
   },
   {
     text: "Issue Book",
-    icon: <HomeOutlined />,
+    icon: <BookmarkAddOutlined />,
   },
   {
     text: "Return Book",
-    icon: <HomeOutlined />,
+    icon: <BookmarkRemoveOutlined />,
   },
   {
     text: "Import",
-    icon: <HomeOutlined />,
+    icon: <PlaylistAddOutlinedIcon />,
   },
   {
     text: "Data",

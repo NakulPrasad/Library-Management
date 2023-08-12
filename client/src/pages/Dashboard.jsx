@@ -9,6 +9,7 @@ import {
   Typography,
   Rating,
   useTheme,
+  TextField,
   useMediaQuery,
 } from "@mui/material";
 import Header from "components/Header";
@@ -103,17 +104,10 @@ const Dashboard = () => {
       <FlexBetween>
         <Header title="Book" subtitle="List of all available books" />
         <Box>
-          <input
-            type="text"
-            placeholder="Search by title, author, etc."
+          <TextField
+            label="Title, Authors, Publisher"
+            variant="standard"
             onChange={handleSearch}
-            sx={{
-              padding: "10px",
-              fontSize: "14px",
-              border: `1px solid ${theme.palette.secondary.light}`,
-              borderRadius: "5px",
-              marginRight: "10px",
-            }}
           />
         </Box>
       </FlexBetween>

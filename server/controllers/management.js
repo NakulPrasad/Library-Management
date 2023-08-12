@@ -139,7 +139,7 @@ export const issueBook = async (req, res) => {
         sendSuccessResponse(res, `"${title}" Book issued successfully.`);
     } catch (error) {
         console.error(error);
-        sendErrorResponse(res, 500, "Error occured while inmporting");
+        sendErrorResponse(res, 500, "Error occured while importing");
     }
 };
 
