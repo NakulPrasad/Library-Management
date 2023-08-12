@@ -83,16 +83,20 @@ export const issueBook = async (req, res) => {
     try {
         const { email, bookID } = req.body;
 
-
         const member = await Member.findOne({ email });
         if (!member) {
             return res.status(404).json({ error: 'Member not found.' });
         }
+
+        // Check if the member's outstanding debt is >= 500
+        if (member.outstanding >= 500) {
+            return res.status(400).json({ message: 'Outstanding debt exceeds Rs. 500. Cannot issue a book.' });
+        }
+
         const book = await Book.findOne({ bookID });
         if (!book) {
             return res.status(404).json({ error: 'Book not found.' });
         }
-
 
         // Check if the book is available for issuing
         if (book.quantity === 0) {
@@ -103,16 +107,19 @@ export const issueBook = async (req, res) => {
         const transaction = new Transaction({
             email: email,
             bookID: bookID,
-            dueDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+            action: "issue",
+            outstanding: member.outstanding + 100  // Increase outstanding by 100 per issue
         });
         await transaction.save();
 
         // Update book quantity
         book.quantity -= 1;
+        await book.save();
 
         // Save changes to the database
         member.bookIssued.push(bookID);
-        await book.save();
+        member.outstanding += 100;  // Increase outstanding by 100 per issue
+        await member.save();
 
         res.json({ message: 'Book issued successfully.' });
     } catch (error) {
@@ -120,6 +127,7 @@ export const issueBook = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while processing the request.' });
     }
 };
+
 
 //return book
 export const returnBook = async (req, res) => {

@@ -9,9 +9,8 @@ const transactionSchema = new mongoose.Schema(
             required: true,
         },
 
-        dueDate: { type: Date, required: true },
-        returnDate: { type: Date },
-        lateFee: { type: Number, default: 0 },
+        outstanding: { type: Number, default: 0 },
+        action: { type: String, enum: ["issue", "return"] }
     },
     { timestamps: true }
 );

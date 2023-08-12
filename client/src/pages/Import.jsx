@@ -4,19 +4,19 @@ import Header from "components/Header";
 import FlexBetween from "components/FlexBetween";
 import { useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useAddMemberMutation } from "state/api";
+import { useImportBookMutation } from "state/api";
 import ImportForm from "components/ImportForm";
 
 const Import = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const [addMember] = useAddMemberMutation();
+  const [addMember] = useImportBookMutation();
 
   const navigate = useNavigate();
   const handleFormSubmit = async (values) => {
     // console.log(values);
     await addMember(values);
-    alert("Books Added Successfully");
+    alert("Books Imported Successfully");
     navigate("/dashboard");
   };
 

@@ -13,8 +13,7 @@ const BookSchema = new mongoose.Schema(
         publisher: { type: String },
         publication_date: { type: String },
 
-        quantity: { type: Number },
-        rentFee: { type: Number },
+        quantity: { type: Number, default: 5 },
     },
 
 );

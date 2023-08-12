@@ -27,8 +27,13 @@ const Transactions = () => {
       flex: 1,
     },
     {
-      field: "lateFee",
-      headerName: "Late Fee",
+      field: "outstanding",
+      headerName: "Outstanding",
+      flex: 1,
+    },
+    {
+      field: "action",
+      headerName: "Action",
       flex: 1,
     },
     {

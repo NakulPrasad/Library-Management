@@ -71,7 +71,12 @@ const ImportForm = ({ isNonMobile, handleFormSubmit }) => {
 };
 
 const checkoutSchema = yup.object().shape({
-  isbn: yup.string().required("required"),
+  isbn: yup
+    .string()
+    .required("required")
+    .test("no-spaces", "ISBN should not contain spaces", (value) => {
+      return !/\s/.test(value);
+    }),
   quantity: yup.number().required("required"),
 });
 export default ImportForm;

@@ -28,6 +28,7 @@ const memberSchema = new mongoose.Schema(
         occupation: String,
         phoneNumber: String,
         bookIssued: Array,
+        outstanding: { type: Number, default: 0 }
     },
     { timestamps: true }
 );

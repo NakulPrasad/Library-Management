@@ -14,7 +14,7 @@ const IssueBook = () => {
 
   const navigate = useNavigate();
   const handleFormSubmit = async (values) => {
-    console.log(values);
+    // console.log(values);
     await issueBook(values);
     alert("Book Issued Successfully");
     navigate("/members");

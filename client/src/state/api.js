@@ -9,6 +9,7 @@ export const api = createApi({
         "Books",
         "Member",
         "Members",
+        "ImportBook",
 
     ],
     endpoints: (build) => ({
@@ -70,12 +71,12 @@ export const api = createApi({
             providesTags: ["Transactions"],
         }),
         importBook: build.mutation({
-            query: (newBook) => ({
+            query: ({ isbn, quantity }) => ({
                 url: '/management/importBook',
                 method: 'POST',
-                body: newBook
+                body: { isbn, quantity }
             }),
-            providesTags: ["Add Member"]
+            providesTags: ["Import Book"]
         }),
 
 
@@ -97,6 +98,7 @@ export const {
     useIssueBookMutation,
     useGetTransactionsQuery,
     useReturnBookMutation,
+    useImportBookMutation,
 
 
 } = api
