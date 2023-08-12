@@ -76,7 +76,8 @@ const checkoutSchema = yup.object().shape({
     .required("required")
     .test("no-spaces", "ISBN should not contain spaces", (value) => {
       return !/\s/.test(value);
-    }),
+    })
+    .test("len", "Must be exactly 10 digit", (val) => val.length === 10),
   quantity: yup.number().required("required"),
 });
 export default ImportForm;

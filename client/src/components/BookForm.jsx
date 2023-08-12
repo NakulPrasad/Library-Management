@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 const BookForm = ({ isNonMobile, handleFormSubmit }) => {
-  console.log(handleFormSubmit);
+  // console.log(handleFormSubmit);
   const initialValues = {
     email: `${""}`,
     bookID: `${""}`,
@@ -72,6 +72,9 @@ const BookForm = ({ isNonMobile, handleFormSubmit }) => {
 
 const checkoutSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
-  bookID: yup.number().required("required"),
+  bookID: yup
+    .number()
+    .required("required")
+    .test("len", "Must be exactly 5 digit", (val) => val.length === 5),
 });
 export default BookForm;

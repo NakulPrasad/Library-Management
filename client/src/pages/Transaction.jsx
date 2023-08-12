@@ -76,6 +76,11 @@ const Transactions = () => {
       >
         <DataGrid
           loading={isLoading || !data}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: "createdAt", sort: "desc" }],
+            },
+          }}
           getRowId={(row) => row._id}
           rows={data || []}
           columns={columns}

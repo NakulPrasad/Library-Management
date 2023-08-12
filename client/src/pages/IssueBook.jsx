@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
-
+import React, { useState } from "react";
 import Header from "components/Header";
 import FlexBetween from "components/FlexBetween";
-import { useNavigate } from "react-router-dom";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useIssueBookMutation } from "state/api";
 import BookForm from "components/BookForm";
@@ -12,12 +12,19 @@ const IssueBook = () => {
 
   const [issueBook] = useIssueBookMutation();
 
-  const navigate = useNavigate();
+  const [alertMessage, setAlertMessage] = useState("");
   const handleFormSubmit = async (values) => {
-    // console.log(values);
-    await issueBook(values);
-    alert("Book Issued Successfully");
-    navigate("/members");
+    try {
+      const response = await issueBook(values);
+      if (response.data.success) {
+        setAlertMessage(response.data.message);
+      } else {
+        setAlertMessage("Failed to Issue book: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("Error in issusing book:", error);
+      setAlertMessage("An error occurred while issuing the book.");
+    }
   };
 
   return (
@@ -25,6 +32,7 @@ const IssueBook = () => {
       <FlexBetween sx={{ m: "2vh 0" }}>
         <Header title="ISSUE BOOKS" subtitle="Issue books to members" />
       </FlexBetween>
+      {alertMessage && <div className="alert">{alertMessage}</div>}
       <BookForm isNonMobile={isNonMobile} handleFormSubmit={handleFormSubmit} />
     </Box>
   );
