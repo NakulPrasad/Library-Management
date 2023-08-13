@@ -9,7 +9,7 @@
     <a href="https://github.com/NakulPrasad/Library-Management"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://github.com/NakulPrasad/Library-Management">View Demo</a>
+    <a href="https://librarry.azurewebsites.net">View Demo</a>
     .
     <a href="https://github.com/NakulPrasad/Library-Management/issues">Report Bug</a>
     .
@@ -25,7 +25,7 @@
 * [Built With](#built-with)
 * [Getting Started](#getting-started)
   * [Installation](#installation)
-* [Usage](#usage)
+* [Screenshots](#screen-shots)
 * [Contributing](#contributing)
 * [Authors](#authors)
 
@@ -33,7 +33,11 @@
 
 Effortlessly manage your library with **Librarry**, a modern library management system designed for librarians.<br>
 Keep your collection organized, handle member records, and facilitate seamless transactions. <br>
-<br> ![Screen Shot](https://github.com/NakulPrasad/Library-Management/assets/96919039/b6e178d4-3a4f-4fd1-a5f4-797d2ebad6b9)
+<br> ![Screen Shot](https://github.com/NakulPrasad/Library-Management/assets/96919039/b6e178d4-3a4f-4fd1-a5f4-797d2ebad6b9) 
+<br>
+<p  align="center">
+<a href="https://librarry.azurewebsites.net" >View Live</a></p>
+
 ### _Librarry features:_
 
 
@@ -47,6 +51,7 @@ Keep your collection organized, handle member records, and facilitate seamless t
 
 * **_Search:_**              &nbsp; &nbsp; &nbsp;Quickly locate books by title or author.<br>
 
+* **_import:_**              &nbsp; &nbsp; &nbsp;Import books from Frappe API.<br>
 
 
 
@@ -56,12 +61,38 @@ _**Frontend:**_ &nbsp;React, Material UI, HTML, CSS <br>
 **_Backend:_** &nbsp;Node.js, Express.js, MongoDB, Mongoose <br>
 
 ## Screen Shots
-Homepage: <br>
+#### Book Management: _Maintain, Update, and Track books._ <br>
 ![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/77364d29-d9c2-4216-87e8-83867166c68e)
-Transaction:<br>
-![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/a5e6d35a-e02f-4179-bcb4-cc49fd2e5841)
-Members: <br>
+<br>
+
+#### Members Management: _Add, Edit and delete member details_ <br>
 ![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/fa209ed9-c201-4414-acdb-f06eec3f84c5)
+![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/e05f773f-4f18-4731-a69f-57cb1999ee04)
+![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/15be4a88-9dd8-499b-9cc1-ae054b5df16b)
+<br>
+
+#### Debt Control: _Limit debt to Rs. 500 per member_ <br>
+![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/a1cde818-6464-4861-ab19-726f269b3d4a)
+<br>
+
+#### Transactions: _Shows member's email, book Issued and outstanding debt_ <br>
+![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/a5e6d35a-e02f-4179-bcb4-cc49fd2e5841)
+<br>
+
+#### Search: _Search Books by title, authors and publisher_ <br>
+![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/78497899-9645-462a-abef-9b8ddf0892ba)
+<br>
+
+#### Import: _Import Books by using ISBN form API_ <br>
+![image](https://github.com/NakulPrasad/Library-Management/assets/96919039/535de333-89e8-4360-8149-88de8678bdb8)
+<br>
+
+#### Few ISBN's To test **Import** Functionality
+* 1400051738 : The Ruby Ring
+* 0763608041 : Alice's Adventures in Wonderland
+* 0425110427 : Team Yankee
+* 1560978007 : Big Baby
+
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
@@ -107,15 +138,7 @@ OR
 npm run dev
 ```
 
-
-
-
-
-
 ## Contributing
-
-
-
 ### Creating A Pull Request
 
 1. Fork the Project
