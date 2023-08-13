@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 const ImportForm = ({ isNonMobile, handleFormSubmit }) => {
-  console.log(handleFormSubmit);
+  // console.log(handleFormSubmit);
   const initialValues = {
     quantity: `${""}`,
     isbn: `${""}`,

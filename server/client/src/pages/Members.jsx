@@ -15,17 +15,20 @@ const Members = () => {
     {
       field: "name",
       headerName: "Name",
-      flex: 0.5,
+      minWidth: 150,
+      flex: 0.25,
     },
     {
       field: "email",
       headerName: "Email",
-      flex: 0.7,
+      minWidth: 150,
+      flex: 0.25,
     },
     {
       field: "phoneNumber",
       headerName: "Phone Number",
-      flex: 0.5,
+      minWidth: 150,
+      flex: 0.25,
       renderCell: (params) => {
         return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
       },
@@ -34,7 +37,8 @@ const Members = () => {
     {
       field: "bookIssued",
       headerName: "Book Issued",
-      flex: 0.5,
+      minWidth: 150,
+      flex: 0.25,
     },
     {
       field: "edit",

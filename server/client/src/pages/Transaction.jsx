@@ -14,31 +14,37 @@ const Transactions = () => {
     {
       field: "_id",
       headerName: "ID",
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "email",
       headerName: "Email",
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "bookID",
       headerName: "Book ID",
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "outstanding",
       headerName: "Outstanding",
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "action",
       headerName: "Action",
+      minWidth: 150,
       flex: 1,
     },
     {
       field: "createdAt",
       headerName: "CreatedAt",
+      minWidth: 150,
       flex: 1,
     },
   ];
