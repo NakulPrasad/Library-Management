@@ -88,10 +88,26 @@ _**Frontend:**_ &nbsp;React, Material UI, HTML, CSS <br>
 <br>
 
 #### Few ISBN's To test **Import** Functionality
-* 1400051738 : The Ruby Ring
+* 0306810700 : Hannibal Crosses the Alps: The Invasion of Italy & the Second Punic War
 * 0763608041 : Alice's Adventures in Wonderland
-* 0425110427 : Team Yankee
+* 0451200268 : Devil's Embrace (Devil  #1)
+* 0060546573 : Three Rotten Eggs (The Hamlet Chronicles  #5)
+* 0859652769 : Ewan McGregor: From Junkie to Jedi
+* 0879100230 : The Season: A Candid Look at Broadway
+* 0449001172 : Wartime Lies
+* 1593080115 : Robinson Crusoe
+* 0553380176 : Wouldn't Take Nothing for My Journey Now
+* 0425164179 : One is the Loneliest Number (Tom Clancy's Net Force Explorers  #3)
+* 1400051738 : The Ruby Ring
+* 0802141447 : Monster: The Autobiography of an L.A. Gang Member
+* 1401212026 : Doom Patrol  Vol. 5: Magic Bus
+* 0307274977 : Buried Child
 * 1560978007 : Big Baby
+* 014303751X : The Communist Manifesto (Great Ideas)
+* 0425110427 : Team Yankee
+* 1932416137 : How We Are Hungry: Stories
+* 0345461584 : Sliding Scales (Pip & Flinx #10)
+* 0099595818 : CivilWarLand in Bad Decline
 
 ## Getting Started
 
@@ -111,14 +127,14 @@ cd server
 npm install --prefix client
 npm install
 ```
-3. Create .env file
+3. Create .env file <br/>
 File should be root of 'server' folder
 ```
 #ADD FOLLOWING
 
 REACT_APP_BASE_URL = "http://localhost:80/"
 ```
-4. Create .env.local
+4. Create .env.local<br/>
 Database File : /server/data/index.js
 ```
 #ADD FOLLOWING
