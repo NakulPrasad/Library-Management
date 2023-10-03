@@ -67,7 +67,7 @@ const Dashboard = () => {
         <Header title="Book" subtitle="List of all available books" />
         <Box>
           <TextField
-            label="Title, Authors, Publisher"
+            label="Title, Authors"
             variant="standard"
             onChange={handleSearch}
             sx={{
@@ -88,10 +88,9 @@ const Dashboard = () => {
       >
         {data
           .filter(
-            ({ title, authors, publisher }) =>
+            ({ title, authors }) =>
               title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              authors.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              publisher.toLowerCase().includes(searchQuery.toLowerCase())
+              authors.toLowerCase().includes(searchQuery.toLowerCase())
           )
           .map(
             ({
@@ -99,11 +98,8 @@ const Dashboard = () => {
               title,
               authors,
               average_rating,
-              language_code,
               publisher,
               isbn,
-              isbn13,
-              publication_date,
               quantity,
             }) => (
               <Book
@@ -112,11 +108,8 @@ const Dashboard = () => {
                 title={title}
                 authors={authors}
                 average_rating={average_rating}
-                language_code={language_code}
                 publisher={publisher}
-                publication_date={publication_date}
                 quantity={quantity}
-                isbn13={isbn13}
                 isbn={isbn}
               />
             )

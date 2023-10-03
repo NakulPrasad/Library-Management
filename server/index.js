@@ -4,35 +4,39 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
-import morgan from "morgan";
+import path from "path";
+
+//importing Routes
 
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import dataRoutes from "./routes/data.js"
 
-import path from "path";
 
-
-//data db imports
+//importing Schemas for MongoDb
 import Book from "./models/Book.js";
 import Member from "./models/Member.js";
-import { dataBook, dataMember, dataTransaction } from "./data/index.js";
 import Transaction from "./models/Transaction.js";
 
+//importing mock data
+import { dataBook, dataMember, dataTransaction } from "./data/index.js";
 
 
-// CONFIGURATION
+//setting .env file
 dotenv.config();
+
+//creating server
 const app = express();
 app.use(express.json());
-app.use(helmet());
 
+//setting middlewares
+app.use(helmet());
+//enabling cross-origin 
 app.use(
     helmet.crossOriginResourcePolicy({
         policy: "cross-origin",
     })
 );
-app.use(morgan(" common "));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -44,7 +48,7 @@ app.use("/management", managementRoutes);
 app.use("/data", dataRoutes);
 
 
-// Connecting frontend
+// Connecting frontend, use when frontend build is generated and ready to be deployed.
 // Serve static files from the React app in production
 // if (process.env.NODE_ENV === "production") {
 //     app.use(express.static(path.join(path.resolve(), './client/build')));
@@ -57,7 +61,7 @@ app.use("/data", dataRoutes);
 
 
 /* MONGOOSE SETUP*/
-// 
+//setting mongodb server
 const PORT = process.env.PORT || 80;
 mongoose
     .connect(process.env.MONGO_URL, {
@@ -67,7 +71,8 @@ mongoose
     .then(() => {
 
         app.listen(PORT, () => console.log(`Connected to MongoDB... ${PORT}`))
-        // data adds only one time
+        // Adding mock data to backend
+        // Commented to protect reuploading of mock data to mongoDB
         // Book.insertMany(dataBook);
         // Member.insertMany(dataMember);
         // Transaction.insertMany(dataTransaction);

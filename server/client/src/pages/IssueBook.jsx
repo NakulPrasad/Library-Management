@@ -19,7 +19,7 @@ const IssueBook = () => {
       }
     } catch (error) {
       console.error("Error in issusing book:", error);
-      setAlertMessage("An error occurred while issuing the book.");
+      setAlertMessage("Book is Already Issue to this member");
     }
   };
 

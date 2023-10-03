@@ -3,6 +3,13 @@ import Book from "../models/Book.js";
 import Transaction from "../models/Transaction.js";
 import fetch from "node-fetch";
 
+
+//current path : /management
+
+//Path: /management/edit/member/:id
+//Method: GET
+//returns: member details
+
 export const getMember = async (req, res) => {
     try {
         const { id } = req.params;
@@ -12,6 +19,12 @@ export const getMember = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
+
+//Path: /management/members
+//Method: GET
+//returns: all member without passwords
+
+
 export const getMembers = async (req, res) => {
     try {
         const members = await Member.find().select("-password");
@@ -21,7 +34,10 @@ export const getMembers = async (req, res) => {
     }
 };
 
-//delete member
+//Path: /management/edit/member/:id
+//Method: DELETE
+//returns: Member ID
+
 export const deleteMember = async (req, res) => {
     try {
         const { id } = req.params;
@@ -31,6 +47,10 @@ export const deleteMember = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+//Path: /edit/addMember
+//Method: POST
+//returns: NEW MEMBER
 
 export const addMember = async (req, res) => {
     const member = req.body;
@@ -45,67 +65,62 @@ export const addMember = async (req, res) => {
     }
 };
 
-//updating member:
+//Path: /edit/member/:id
+//Method: PUT
+//returns: updated member details
 export const editMember = async (req, res) => {
     let member = req.body;
     const { id } = req.params;
 
-    // Log incoming data for debugging
-    // console.log(`Editing member with ID ${id} with data`, member);
-
     try {
-        // Try to update the member
         const updatedMember = await Member.findOneAndUpdate({ _id: id }, member, {
             new: true,
         });
 
-        // If successful, return updated member
         res.status(201).json(updatedMember);
     } catch (error) {
-        // Log the error details
         console.log("Error details:", error);
         res.status(409).json({ message: error.message });
     }
 };
 
+//Path: /management/issueBook
+//Method: POST
 
-//issue book
 export const issueBook = async (req, res) => {
     try {
         const { email, bookID } = req.body;
 
         const member = await Member.findOne({ email });
         if (!member) {
-            return sendErrorResponse(res, 404, "Member Not Found");
+            return res.status(404).json({ success: false, message: "Member Not Found" });
         }
 
         // Check if the member's outstanding debt is >= 500
         if (member.outstanding >= 500) {
-            return sendErrorResponse(
-                res,
-                400,
-                "Outstanding debt exceeds Rs. 500. Cannot issue a book."
-            );
+            return res.status(400).json({
+                success: false,
+                message: "Outstanding debt exceeds Rs. 500. Cannot issue a book."
+            });
         }
 
         const book = await Book.findOne({ bookID });
         const { title } = book;
         if (!book) {
-            return sendErrorResponse(res, 404, "Check BookID, book not found.");
+            return res.status(404).json({ success: false, message: "Check BookID, book not found." });
         }
 
         // Check if the book is available for issuing
         if (book.quantity === 0) {
-            return sendErrorResponse(res, 400, `"${title}" Book is out of stock.`);
+            return res.status(400).json({ success: false, message: `"${title}" Book is out of stock.` });
         }
 
         // Check if the member has already issued the same book
         if (member.bookIssued.includes(bookID)) {
-            return sendErrorResponse(
-                res,
-                400,
-                `"${title}" Book has already been issued to this member.`
-            );
+            return res.status(400).json({
+                success: false,
+                message: `"${title}" Book has already been issued to this member.`
+            });
         }
 
         // Create a new transaction record
@@ -126,14 +141,16 @@ export const issueBook = async (req, res) => {
         member.outstanding += 100; // Increase outstanding by 100 per issue
         await member.save();
 
-        sendSuccessResponse(res, `"${title}" Book issued successfully.`);
+        res.status(200).json({ success: true, message: `"${title}" Book issued successfully.` });
     } catch (error) {
         console.error(error);
-        sendErrorResponse(res, 500, "Error occured while importing");
+        res.status(500).json({ success: false, message: "Error occurred while issuing the book" });
     }
 };
 
-//return book
+
+//Path: /management/returnBook
+//Method: post
 
 export const returnBook = async (req, res) => {
     try {
@@ -143,15 +160,15 @@ export const returnBook = async (req, res) => {
         const book = await Book.findOne({ bookID });
 
         if (!member) {
-            return sendErrorResponse(res, 404, "Member not found.");
+            return res.status(404).json({ success: false, message: "Member not found." });
         }
         if (!book) {
-            return sendErrorResponse(res, 404, "Book not found.");
+            return res.status(404).json({ success: false, message: "Book not found." });
         }
 
         const issuedIndex = member.bookIssued.indexOf(bookID);
         if (issuedIndex === -1) {
-            return sendErrorResponse(res, 400, "Book not issued by this member.");
+            return res.status(400).json({ success: false, message: "Book not issued by this member." });
         }
 
         member.bookIssued.splice(issuedIndex, 1);
@@ -175,18 +192,16 @@ export const returnBook = async (req, res) => {
         await member.save();
         await book.save();
 
-        sendSuccessResponse(res, "Book returned successfully.");
+        res.status(200).json({ success: true, message: "Book returned successfully." });
     } catch (error) {
         console.error(error);
-        sendErrorResponse(
-            res,
-            500,
-            "Error in Returning Book"
-        );
+        res.status(500).json({ success: false, message: "Error in Returning Book" });
     }
 };
 
-//import Book
+
+//Path: /management/importBook
+//Method: post
 export const importBook = async (req, res) => {
     const { isbn, quantity } = req.body;
     const id = isbn;
@@ -198,21 +213,13 @@ export const importBook = async (req, res) => {
         );
 
         if (!response.ok) {
-            return sendErrorResponse(
-                res,
-                400,
-                "Error fetching book data from external API"
-            );
+            return res.status(400).json({ success: false, message: "Error fetching book data from external API" });
         }
 
         const responseData = await response.json(); // Parse response data
 
         if (responseData.message.length === 0) {
-            return sendErrorResponse(
-                res,
-                404,
-                "Check ISBN, book not found in Frappe API"
-            );
+            return res.status(404).json({ success: false, message: "Check ISBN, book not found in Frappe API" });
         }
 
         const bookData = responseData.message[0]; // Access the first book object
@@ -252,18 +259,9 @@ export const importBook = async (req, res) => {
         }
         await book.save();
 
-        sendSuccessResponse(res, `"${title}" Book imported successfully.`);
+        res.status(200).json({ success: true, message: `"${title}" Book imported successfully."` });
     } catch (error) {
         console.error(error);
-        sendErrorResponse(res, "Error importing book.");
+        res.status(500).json({ success: false, message: "Error importing book." });
     }
-};
-
-//sends message to frontend
-const sendSuccessResponse = (res, message) => {
-    res.json({ success: true, message: message });
-};
-
-const sendErrorResponse = (res, errorMessage) => {
-    res.json({ success: false, message: errorMessage });
 };

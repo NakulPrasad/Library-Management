@@ -56,6 +56,7 @@ const Transactions = () => {
         }}
       >
         <DataGrid
+          loading={!data}
           getRowId={(row) => row._id}
           rows={data || []}
           columns={columns}

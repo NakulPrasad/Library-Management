@@ -7,18 +7,23 @@ import { useReturnBookMutation } from "services/api";
 
 const ReturnBook = () => {
   const [returnBook] = useReturnBookMutation();
+  //storing message from backend
   const [alertMessage, setAlertMessage] = useState("");
 
+  //handles form submit
   const handleFormSubmit = async (values) => {
+    //sends form data and sets message from backend
     try {
+      //sending form data to backend
       const response = await returnBook(values);
+      //if sucessfully send then shows message from backend
       if (response.data.success) {
         setAlertMessage(response.data.message);
       } else {
         setAlertMessage("Failed to return book: " + response.data.message);
       }
     } catch (error) {
-      console.error("Error returning book:", error);
+      // console.error("Error returning book:", error);
       setAlertMessage("An error occurred while returning the book.");
     }
   };

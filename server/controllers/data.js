@@ -1,5 +1,8 @@
 import Transaction from "../models/Transaction.js";
 
+//Path: /data/transactions
+//Method: get
+
 export const getTransactions = async (req, res) => {
     try {
         const trans = await Transaction.find();

@@ -88,6 +88,7 @@ const Members = () => {
         }}
       >
         <DataGrid
+          loading={!data}
           getRowId={(row) => row._id} //generates column id //required by DataGrid
           rows={data || []}
           columns={columns}
