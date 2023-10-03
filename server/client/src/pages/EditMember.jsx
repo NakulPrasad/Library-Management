@@ -4,7 +4,7 @@ import Header from "components/Header";
 import FlexBetween from "components/FlexBetween";
 import { useParams, useNavigate } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useGetMemberQuery, useEditMemberMutation } from "state/api";
+import { useGetMemberQuery, useEditMemberMutation } from "services/api";
 import MemberForm from "components/MemberForm";
 
 const EditMember = () => {

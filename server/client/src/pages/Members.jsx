@@ -1,14 +1,14 @@
 import React from "react";
 import { Box, useTheme, Button } from "@mui/material";
-import { useGetMembersQuery, useDeleteMemberMutation } from "state/api";
+import { useGetMembersQuery, useDeleteMemberMutation } from "services/api";
 import Header from "components/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 
 const Members = () => {
   const theme = useTheme();
-  const { data, isLoading } = useGetMembersQuery();
-  const [deleteUser] = useDeleteMemberMutation();
+  const { data } = useGetMembersQuery();
+  const [deleteMember] = useDeleteMemberMutation();
   const navigate = useNavigate();
   // console.log("data", data);
   const columns = [
@@ -29,9 +29,6 @@ const Members = () => {
       headerName: "Phone Number",
       minWidth: 150,
       flex: 0.25,
-      renderCell: (params) => {
-        return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-      },
     },
 
     {
@@ -75,11 +72,8 @@ const Members = () => {
   };
 
   const handleDelete = (id) => {
-    // Call your API to delete member from the database
-
-    deleteUser(id);
+    deleteMember(id);
     alert("Member Deleted Successfully");
-    window.location.reload();
   };
   return (
     <Box m="1.5rem 2.5rem">
@@ -88,33 +82,13 @@ const Members = () => {
         mt="40px"
         height="75vh"
         sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: theme.palette.background.alt,
-            color: theme.palette.secondary[100],
-            borderBottom: "none",
-          },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: theme.palette.primary.light,
-          },
-          "& .MuiDataGrid-footerContainer": {
-            backgroundColor: theme.palette.background.alt,
-            color: theme.palette.secondary[100],
-            borderTop: "none",
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${theme.palette.secondary[200]} !important`,
           },
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
-          getRowId={(row) => row._id}
+          getRowId={(row) => row._id} //generates column id //required by DataGrid
           rows={data || []}
           columns={columns}
         />

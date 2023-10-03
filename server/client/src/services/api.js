@@ -73,16 +73,12 @@ export const api = createApi({
             providesTags: ["Import Book"]
         }),
 
-
-
-
     }),
 
 })
 
 export const {
 
-    //all product+stats json objext
     useGetBooksQuery,
     useGetMemberQuery,
     useGetMembersQuery,

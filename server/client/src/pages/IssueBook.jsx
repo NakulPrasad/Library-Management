@@ -2,20 +2,16 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import Header from "components/Header";
 import FlexBetween from "components/FlexBetween";
-
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useIssueBookMutation } from "state/api";
 import BookForm from "components/BookForm";
+import { useIssueBookMutation } from "services/api";
 
 const IssueBook = () => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
-
   const [issueBook] = useIssueBookMutation();
-
   const [alertMessage, setAlertMessage] = useState("");
   const handleFormSubmit = async (values) => {
     try {
       const response = await issueBook(values);
+      // console.log(values);
       if (response.data.success) {
         setAlertMessage(response.data.message);
       } else {
@@ -33,7 +29,7 @@ const IssueBook = () => {
         <Header title="ISSUE BOOKS" subtitle="Issue books to members" />
       </FlexBetween>
       {alertMessage && <div className="alert">{alertMessage}</div>}
-      <BookForm isNonMobile={isNonMobile} handleFormSubmit={handleFormSubmit} />
+      <BookForm handleFormSubmit={handleFormSubmit} />
     </Box>
   );
 };

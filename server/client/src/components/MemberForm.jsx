@@ -3,7 +3,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 
-const MemberForm = ({ member, isNonMobile, handleFormSubmit }) => {
+const MemberForm = ({ member, handleFormSubmit }) => {
   // console.log(member);
   const initialValues = {
     name: `${member?.name || ""}`,
@@ -14,6 +14,7 @@ const MemberForm = ({ member, isNonMobile, handleFormSubmit }) => {
     state: `${member?.state || ""}`,
     city: `${member?.city || ""}`,
   };
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -33,9 +34,6 @@ const MemberForm = ({ member, isNonMobile, handleFormSubmit }) => {
             display="grid"
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-            sx={{
-              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-            }}
           >
             <TextField
               fullWidth

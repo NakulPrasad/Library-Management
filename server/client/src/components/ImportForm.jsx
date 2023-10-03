@@ -3,7 +3,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 
-const ImportForm = ({ isNonMobile, handleFormSubmit }) => {
+const ImportForm = ({handleFormSubmit }) => {
   // console.log(handleFormSubmit);
   const initialValues = {
     quantity: `${""}`,
@@ -28,9 +28,7 @@ const ImportForm = ({ isNonMobile, handleFormSubmit }) => {
             display="grid"
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-            sx={{
-              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-            }}
+          
           >
             <TextField
               fullWidth

@@ -50,7 +50,7 @@ export const editMember = async (req, res) => {
     let member = req.body;
     const { id } = req.params;
 
-    // Log incoming data for troubleshooting
+    // Log incoming data for debugging
     // console.log(`Editing member with ID ${id} with data`, member);
 
     try {
@@ -255,7 +255,7 @@ export const importBook = async (req, res) => {
         sendSuccessResponse(res, `"${title}" Book imported successfully.`);
     } catch (error) {
         console.error(error);
-        sendErrorResponse(res, 500, "Error importing book.");
+        sendErrorResponse(res, "Error importing book.");
     }
 };
 
@@ -264,6 +264,6 @@ const sendSuccessResponse = (res, message) => {
     res.json({ success: true, message: message });
 };
 
-const sendErrorResponse = (res, statusCode, errorMessage) => {
+const sendErrorResponse = (res, errorMessage) => {
     res.json({ success: false, message: errorMessage });
 };

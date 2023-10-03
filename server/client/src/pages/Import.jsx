@@ -2,19 +2,15 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import Header from "components/Header";
 import FlexBetween from "components/FlexBetween";
-
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useImportBookMutation } from "state/api";
 import ImportForm from "components/ImportForm";
+import { useImportBookMutation } from "services/api";
 
 const Import = () => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
-
-  const [addMember] = useImportBookMutation();
+  const [importBook] = useImportBookMutation();
   const [alertMessage, setAlertMessage] = useState("");
   const handleFormSubmit = async (values) => {
     try {
-      const response = await addMember(values);
+      const response = await importBook(values);
       if (response.data.success) {
         setAlertMessage(response.data.message);
       } else {
@@ -32,10 +28,7 @@ const Import = () => {
         <Header title="IMPORT BOOKS" subtitle="Import new books" />
       </FlexBetween>
       {alertMessage && <div className="alert">{alertMessage}</div>}
-      <ImportForm
-        isNonMobile={isNonMobile}
-        handleFormSubmit={handleFormSubmit}
-      />
+      <ImportForm handleFormSubmit={handleFormSubmit} />
     </Box>
   );
 };

@@ -1,6 +1,5 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { themeSettings } from "theme.js";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
@@ -14,13 +13,9 @@ import ReturnBook from "pages/ReturnBook";
 import Import from "pages/Import";
 import Transaction from "pages/Transaction";
 
-
-
-
 function App() {
-  const mode = useSelector((state) => state.global.mode);
 
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const theme = useMemo(() => createTheme(themeSettings()), []);
 
   return (
     <div className="app">
@@ -39,11 +34,6 @@ function App() {
               <Route path="/return book" element={<ReturnBook />} />
               <Route path="/import" element={<Import />} />
               <Route path="/transactions" element={<Transaction />} />
-
-
-
-
-
             </Route>
           </Routes>
 
