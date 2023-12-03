@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-  <h3 align="center">Library Management System - Frappe Assessment</h3>
+  <h3 align="center">Library Management System </h3>
 
   <p align="center">
     "Empower Your Library with Librarry: Seamlessly Manage, Effortlessly Organize!"
